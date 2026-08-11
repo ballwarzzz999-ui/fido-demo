@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FIDO2 Passwordless Auth | SecureID</title>
+  <meta name="description" content="ระบบยืนยันตัวตนไร้รหัสผ่านด้วยมาตรฐาน FIDO2/WebAuthn - สมัครสมาชิกและเข้าสู่ระบบด้วยลายนิ้วมือหรือ Face ID" />
+  <!-- Updated for Vercel Deployment -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Background Orbs -->
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="bg-orb orb-3"></div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <div class="logo">
+      <div class="logo-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+      </div>
+      <span>SecureID</span>
+    </div>
+    <div class="header-badge">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+      FIDO2 / WebAuthn
+    </div>
+  </header>
+
+  <!-- ===== MAIN APP ===== -->
+  <main class="main-container">
+
+    <!-- ===== PAGE: HOME ===== -->
+    <section id="page-home" class="page active">
+      <div class="hero">
+        <div class="hero-icon-wrap">
+          <div class="hero-icon pulse-ring">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="M9 12l2 2 4-4"/>
+            </svg>
+          </div>
+        </div>
+        <h1 class="hero-title">ยืนยันตัวตน<br /><span class="gradient-text">ไร้รหัสผ่าน</span></h1>
+        <p class="hero-subtitle">
+          ใช้เทคโนโลยี FIDO2 / WebAuthn เข้าสู่ระบบได้อย่างปลอดภัย<br />
+          ด้วยลายนิ้วมือ, Face ID หรือ Windows Hello
+        </p>
+
+        <div class="feature-pills">
+          <span class="pill">🔐 End-to-End Secure</span>
+          <span class="pill">🚀 No Password</span>
+          <span class="pill">✅ FIDO2 Standard</span>
+        </div>
+
+        <div class="btn-group">
+          <button id="btn-go-register" class="btn btn-primary" onclick="showPage('page-register')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+            สมัครสมาชิก
+          </button>
+          <button id="btn-go-login" class="btn btn-outline" onclick="showPage('page-login')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+            เข้าสู่ระบบ
+          </button>
+        </div>
+
+        <!-- How it works -->
+        <div class="how-section">
+          <p class="how-title">วิธีการทำงาน</p>
+          <div class="steps-row">
+            <div class="step-card">
+              <div class="step-num">1</div>
+              <div class="step-icon">📝</div>
+              <p>กรอกข้อมูล<br/>สมัครสมาชิก</p>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step-card">
+              <div class="step-num">2</div>
+              <div class="step-icon">👆</div>
+              <p>สแกนนิ้วมือ<br/>หรือ Face ID</p>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step-card">
+              <div class="step-num">3</div>
+              <div class="step-icon">🔑</div>
+              <p>บันทึก<br/>Credential</p>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step-card">
+              <div class="step-num">4</div>
+              <div class="step-icon">✅</div>
+              <p>เข้าสู่ระบบ<br/>ได้ทันที</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PAGE: REGISTER ===== -->
+    <section id="page-register" class="page">
+      <div class="card-container">
+        <div class="card">
+          <div class="card-header">
+            <button class="back-btn" onclick="showPage('page-home')" id="btn-back-from-register">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <div class="card-title-wrap">
+              <div class="card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+              </div>
+              <div>
+                <h2 class="card-title">สมัครสมาชิก</h2>
+                <p class="card-subtitle">กรอกข้อมูลและยืนยันด้วยไบโอเมตริก</p>
+              </div>
+            </div>
+          </div>
+
+          <form id="register-form" onsubmit="handleRegister(event)" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="reg-username">Username <span class="required">*</span></label>
+                <div class="input-wrap">
+                  <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+                  <input type="text" id="reg-username" placeholder="ชื่อผู้ใช้งาน" autocomplete="username" required />
+                </div>
+                <span class="field-error" id="err-username"></span>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="reg-email">อีเมล (สำหรับ Chrome Passkey Sync) <span class="required">*</span></label>
+                <div class="input-wrap">
+                  <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                  <input type="email" id="reg-email" placeholder="yourname@gmail.com" autocomplete="email" required />
+                </div>
+                <span class="field-error" id="err-email"></span>
+              </div>
+            </div>
+
+            <div class="form-row two-col">
+              <div class="form-group">
+                <label for="reg-firstname">ชื่อจริง <span class="required">*</span></label>
+                <div class="input-wrap">
+                  <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  <input type="text" id="reg-firstname" placeholder="First Name" required />
+                </div>
+                <span class="field-error" id="err-firstname"></span>
+              </div>
+              <div class="form-group">
+                <label for="reg-lastname">นามสกุล <span class="required">*</span></label>
+                <div class="input-wrap">
+                  <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  <input type="text" id="reg-lastname" placeholder="Last Name" required />
+                </div>
+                <span class="field-error" id="err-lastname"></span>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="reg-phone">เบอร์โทรศัพท์ <span class="required">*</span></label>
+                <div class="input-wrap">
+                  <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.36a2 2 0 0 1 1.99-2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.17 6.17l1.97-1.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                  <input type="tel" id="reg-phone" placeholder="0xx-xxx-xxxx" required />
+                </div>
+                <span class="field-error" id="err-phone"></span>
+              </div>
+            </div>
+
+            <div class="fido-info-box">
+              <div class="fido-info-icon">🔑</div>
+              <div>
+                <strong>Chrome Passkey Sync</strong>
+                <p>ระบบจะให้เลือก: ใช้ <b>อุปกรณ์นี้</b> (สแกนนิ้ว/Windows Hello) หรือ <b>มือถือ</b> (QR Code) — Passkey จะ Sync ผ่าน Google Account ของคุณโดยอัตโนมัติ</p>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full" id="reg-submit-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span id="reg-btn-text">สมัครสมาชิกด้วย FIDO2</span>
+            </button>
+          </form>
+
+          <div id="reg-status" class="status-msg hidden"></div>
+
+          <p class="switch-link">มีบัญชีอยู่แล้ว? <a href="#" onclick="showPage('page-login')" id="link-go-login">เข้าสู่ระบบที่นี่</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PAGE: LOGIN ===== -->
+    <section id="page-login" class="page">
+      <div class="card-container">
+        <div class="card">
+          <div class="card-header">
+            <button class="back-btn" onclick="showPage('page-home')" id="btn-back-from-login">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <div class="card-title-wrap">
+              <div class="card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+              </div>
+              <div>
+                <h2 class="card-title">เข้าสู่ระบบ</h2>
+                <p class="card-subtitle">ใช้ไบโอเมตริกแทนรหัสผ่าน</p>
+              </div>
+            </div>
+          </div>
+
+          <form id="login-form" onsubmit="handleLogin(event)" novalidate>
+            <div class="form-group">
+              <label for="login-username">Username <span class="required">*</span></label>
+              <div class="input-wrap">
+                <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+                <input type="text" id="login-username" placeholder="กรอก Username ของคุณ" autocomplete="username" required />
+              </div>
+              <span class="field-error" id="err-login-username"></span>
+            </div>
+
+            <div class="fido-info-box">
+              <div class="fido-info-icon">🔐</div>
+              <div>
+                <strong>ยืนยันตัวตนด้วย FIDO2</strong>
+                <p>ระบบจะเรียก WebAuthn API เพื่อแสดง Pop-up ให้คุณยืนยันด้วยไบโอเมตริก ไม่ต้องจำรหัสผ่านอีกต่อไป</p>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full" id="login-submit-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+              <span id="login-btn-text">เข้าสู่ระบบด้วยไบโอเมตริก</span>
+            </button>
+          </form>
+
+          <div id="login-status" class="status-msg hidden"></div>
+
+          <p class="switch-link">ยังไม่มีบัญชี? <a href="#" onclick="showPage('page-register')" id="link-go-register">สมัครสมาชิกที่นี่</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PAGE: DASHBOARD ===== -->
+    <section id="page-dashboard" class="page">
+      <div class="dashboard-container">
+        <!-- Success Animation -->
+        <div class="success-anim">
+          <div class="success-ring"></div>
+          <div class="success-check">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </div>
+        </div>
+
+        <h2 class="dashboard-title">เข้าสู่ระบบสำเร็จ! 🎉</h2>
+        <p class="dashboard-subtitle">ยืนยันตัวตนด้วย FIDO2 เสร็จสมบูรณ์</p>
+
+        <!-- User Profile Card -->
+        <div class="profile-card">
+          <div class="profile-header">
+            <div class="profile-avatar" id="dash-avatar">A</div>
+            <div class="profile-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+              ยืนยันแล้ว
+            </div>
+          </div>
+
+          <div class="profile-info">
+            <div class="info-row">
+              <div class="info-item">
+                <span class="info-label">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+                  Username
+                </span>
+                <span class="info-value" id="dash-username">-</span>
+              </div>
+            </div>
+            <div class="info-row">
+              <div class="info-item">
+                <span class="info-label">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                  อีเมล
+                </span>
+                <span class="info-value" id="dash-email">-</span>
+              </div>
+            </div>
+            <div class="info-row two-col">
+              <div class="info-item">
+                <span class="info-label">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  ชื่อจริง
+                </span>
+                <span class="info-value" id="dash-firstname">-</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  นามสกุล
+                </span>
+                <span class="info-value" id="dash-lastname">-</span>
+              </div>
+            </div>
+            <div class="info-row">
+              <div class="info-item">
+                <span class="info-label">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.36a2 2 0 0 1 1.99-2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.17 6.17l1.97-1.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                  เบอร์โทรศัพท์
+                </span>
+                <span class="info-value" id="dash-phone">-</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Auth details -->
+        <div class="auth-details-card">
+          <p class="auth-detail-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            รายละเอียดการยืนยัน
+          </p>
+          <div class="auth-detail-rows">
+            <div class="auth-detail-row">
+              <span>วิธีการยืนยัน</span>
+              <span class="badge-green">FIDO2 / WebAuthn</span>
+            </div>
+            <div class="auth-detail-row">
+              <span>เวลาเข้าสู่ระบบ</span>
+              <span id="dash-time" class="badge-blue">-</span>
+            </div>
+            <div class="auth-detail-row">
+              <span>สถานะ</span>
+              <span class="badge-green">✅ Authenticated</span>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-outline btn-full" onclick="handleLogout()" id="btn-logout">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          ออกจากระบบ
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== TOAST ===== -->
+  <div id="toast" class="toast hidden">
+    <span id="toast-icon"></span>
+    <span id="toast-msg"></span>
+  </div>
+
+  <!-- ===== LOADING OVERLAY ===== -->
+  <div id="loading-overlay" class="loading-overlay hidden">
+    <div class="loading-box">
+      <div class="spinner"></div>
+      <p id="loading-text">กำลังดำเนินการ...</p>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
